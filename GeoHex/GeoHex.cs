@@ -85,6 +85,7 @@ namespace GeoHex
         public readonly double longitude;
         public readonly long x;
         public readonly long y;
+        public readonly string code;
 
         public Zone(double latitude, double longitude, long x, long y, string code)
         {
@@ -92,6 +93,18 @@ namespace GeoHex
             this.longitude = longitude;
             this.x = x;
             this.y = y;
+            this.code = code;
+        }
+
+        public override bool Equals(object obj)
+        {
+            Zone zone = (Zone)obj;
+            return this.code.Equals(zone.code);
+        }
+
+        public override int GetHashCode()
+        {
+            return this.code.GetHashCode();
         }
     }
 
