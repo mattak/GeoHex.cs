@@ -96,9 +96,47 @@ namespace GeoHex
             this.code = code;
         }
 
+        public Location[] GetGeoHexCoords()
+        {
+            double h_lat = this.latitude;
+            double h_lon = this.longitude;
+            XY h_xy = GEOHEX.Location2XY(h_lon, h_lat);
+            double h_x = h_xy.x;
+            double h_y = h_xy.y;
+            double h_deg = Math.Tan(Math.PI*(60.0/180.0));
+            double h_size = this.GetHexSize();
+            double h_top = GEOHEX.XY2Location(h_x, h_y + h_deg*h_size).latitude;
+            double h_btm = GEOHEX.XY2Location(h_x, h_y - h_deg*h_size).latitude;
+
+            double h_l = GEOHEX.XY2Location(h_x - 2*h_size, h_y).longitude;
+            double h_r = GEOHEX.XY2Location(h_x + 2*h_size, h_y).longitude;
+            double h_cl = GEOHEX.XY2Location(h_x - 1*h_size, h_y).longitude;
+            double h_cr = GEOHEX.XY2Location(h_x + 1*h_size, h_y).longitude;
+
+            return new Location[]
+            {
+                new Location(h_lat, h_l),
+                new Location(h_top, h_cl),
+                new Location(h_top, h_cr),
+                new Location(h_lat, h_r),
+                new Location(h_btm, h_cr),
+                new Location(h_btm, h_cl)
+            };
+        }
+
+        public int GetLevel()
+        {
+            return this.code.Length - 2;
+        }
+
+        public double GetHexSize()
+        {
+            return GEOHEX.CalcHexSize(this.GetLevel());
+        }
+
         public override bool Equals(object obj)
         {
-            Zone zone = (Zone)obj;
+            Zone zone = (Zone) obj;
             return this.code.Equals(zone.code);
         }
 
@@ -341,7 +379,7 @@ namespace GeoHex
 
             string h_2 = h_code.ToString().Substring(3);
             int h_1 = int.Parse(h_code.ToString().Substring(0, 3));
-            int h_a1 = (int) Math.Floor((double)h_1/30);
+            int h_a1 = (int) Math.Floor((double) h_1/30);
             int h_a2 = h_1%30;
             StringBuilder h_code_r = new StringBuilder();
             h_code_r.Append(h_key[h_a1]).Append(h_key[h_a2]).Append(h_2.ToString());
@@ -362,7 +400,7 @@ namespace GeoHex
             else if (hsteps > max_hsteps)
             {
                 long diff = hsteps - max_hsteps;
-                long diff_x = (long)Math.Floor((double)(diff/2));
+                long diff_x = (long) Math.Floor((double) (diff/2));
                 long diff_y = diff - diff_x;
 
                 if (x > y)
@@ -391,7 +429,7 @@ namespace GeoHex
             return new XY(x, y);
         }
 
-        private static XY Location2XY(double longitude, double latitude)
+        public static XY Location2XY(double longitude, double latitude)
         {
             double x = longitude*h_base/180.0;
             double y = Math.Log(Math.Tan((90.0 + latitude)*Math.PI/360.0))/(Math.PI/180.0);
@@ -401,7 +439,7 @@ namespace GeoHex
             return new XY((int) x, (int) y);
         }
 
-        private static Location XY2Location(double x, double y)
+        public static Location XY2Location(double x, double y)
         {
             double lon = (x/h_base)*180.0;
             double lat = (y/h_base)*180.0;
@@ -410,7 +448,7 @@ namespace GeoHex
             return new Location(lat, lon);
         }
 
-        private static double CalcHexSize(int level)
+        public static double CalcHexSize(int level)
         {
             return h_base/Pow3.Calc(level + 3);
         }
