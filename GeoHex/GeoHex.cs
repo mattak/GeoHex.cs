@@ -11,6 +11,7 @@ using System.Diagnostics;
 using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
+using GeoHex;
 
 namespace GeoHex
 {
