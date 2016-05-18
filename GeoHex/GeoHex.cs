@@ -11,7 +11,6 @@ using System.Diagnostics;
 using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
-using GeoHex;
 
 namespace GeoHex
 {
@@ -41,7 +40,6 @@ namespace GeoHex
             (long) Math.Pow(3, 18),
         };
 
-        // TODO: set precalculated pow results
         public static long Calc(int times)
         {
             // hard coding for performance
@@ -58,10 +56,11 @@ namespace GeoHex
 
     public struct XY
     {
-        public readonly long x;
-        public readonly long y;
+        // double is important for `Location2XY()`
+        public readonly double x;
+        public readonly double y;
 
-        public XY(long x, long y)
+        public XY(double x, double y)
         {
             this.x = x;
             this.y = y;
@@ -97,7 +96,7 @@ namespace GeoHex
             this.code = code;
         }
 
-        public Location[] GetGeoHexCoords()
+        public Location[] GetHexCoords()
         {
             double h_lat = this.latitude;
             double h_lon = this.longitude;
@@ -158,6 +157,7 @@ namespace GeoHex
 
         public static Zone GetZoneByLocation(double latitude, double longitude, int level)
         {
+            // TODO: throw exception
             Debug.Assert(latitude < -90 || latitude > 90);
             Debug.Assert(longitude < -180 || longitude > 180);
             Debug.Assert(level < 0 || longitude > 15);
@@ -166,7 +166,15 @@ namespace GeoHex
             return GetZoneByXY(xy.x, xy.y, level);
         }
 
-        private static XY GetXYByLocation(double latitude, double longitude, int level)
+        public static Zone GetZoneByCode(string code)
+        {
+            XY xy = GetXYByCode(code);
+            int level = code.Length - 2;
+            Zone zone = GetZoneByXY(xy.x, xy.y, level);
+            return zone;
+        }
+
+        public static XY GetXYByLocation(double latitude, double longitude, int level)
         {
             double h_size = CalcHexSize(level);
             XY z_xy = Location2XY(longitude, latitude);
@@ -222,11 +230,11 @@ namespace GeoHex
             {
                 if (h_dec9[0] == '5')
                 {
-                    h_dec9 = "7" + h_dec9.Substring(1, h_dec9.Length);
+                    h_dec9 = "7" + h_dec9.Substring(1, h_dec9.Length - 1);
                 }
                 else if (h_dec9[0] == '1')
                 {
-                    h_dec9 = "3" + h_dec9.Substring(1, h_dec9.Length);
+                    h_dec9 = "3" + h_dec9.Substring(1, h_dec9.Length - 1);
                 }
             }
 
@@ -241,7 +249,7 @@ namespace GeoHex
             for (int i = 0; i < d9xlen; i++)
             {
                 int dec9i = int.Parse("" + h_dec9[i]);
-                string h_dec0 = Convert.ToString(dec9i, 3);
+                string h_dec0 = IntToString(dec9i, new char[] {'0', '1', '2'});
                 if (h_dec0.Length == 1)
                 {
                     h_dec3.Append("0");
@@ -312,8 +320,6 @@ namespace GeoHex
             StringBuilder h_code = new StringBuilder();
             List<int> code3_x = new List<int>();
             List<int> code3_y = new List<int>();
-            StringBuilder code3 = new StringBuilder();
-            StringBuilder code9 = new StringBuilder();
             long mod_x = h_x;
             long mod_y = h_y;
 
@@ -370,12 +376,12 @@ namespace GeoHex
 
             for (int i = 0; i < code3_x.Count; i++)
             {
+                // TODO: it's not good for memory efficient
+                StringBuilder code3 = new StringBuilder();
+                StringBuilder code9 = new StringBuilder();
                 code3.Append("").Append(code3_x[i]).Append(code3_y[i]);
-                code9.Append(Convert.ToInt64(code3.ToString(), 3));
+                code9.Append(StringToInt(code3.ToString(), 3));
                 h_code.Append(code9);
-                // XXX: Clear is not implemented unity
-                code3 = new StringBuilder();
-                code9 = new StringBuilder();
             }
 
             string h_2 = h_code.ToString().Substring(3);
@@ -436,8 +442,7 @@ namespace GeoHex
             double y = Math.Log(Math.Tan((90.0 + latitude)*Math.PI/360.0))/(Math.PI/180.0);
             y *= h_base/180.0;
 
-            // xxx: check precision
-            return new XY((int) x, (int) y);
+            return new XY(x, y);
         }
 
         public static Location XY2Location(double x, double y)
@@ -462,6 +467,34 @@ namespace GeoHex
         private static bool RegMatch(char ch, string pattern)
         {
             return RegMatch("" + ch, pattern);
+        }
+
+        // TODO: optimize
+        private static string IntToString(int value, char[] baseChars)
+        {
+            string result = string.Empty;
+            int targetBase = baseChars.Length;
+
+            do
+            {
+                result = baseChars[value%targetBase] + result;
+                value = value/targetBase;
+            } while (value > 0);
+
+            return result.ToString();
+        }
+
+        // TODO: optimize
+        private static int StringToInt(string text, int radix)
+        {
+            int result = 0;
+
+            for (int i = 0; i < text.Length; i++)
+            {
+                result = radix*result + text[i] - '0';
+            }
+
+            return result;
         }
     }
 }

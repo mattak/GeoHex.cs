@@ -47,6 +47,16 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
+    <Content Include="resources\AdjustXY_v3.2.csv" />
+    <Content Include="resources\GetHexCoords_v3.2.csv" />
+    <Content Include="resources\GetHexSize_v3.2.csv" />
+    <Content Include="resources\GetXYByLocation_v3.2.csv" />
+    <Content Include="resources\GetZoneByCode_v3.2.csv" />
+    <Content Include="resources\GetZoneByLocation_v3.2.csv" />
+    <Content Include="resources\GetZoneByXY_v3.2.csv" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="resources" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
