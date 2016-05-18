@@ -7,11 +7,11 @@ using System.Runtime.InteropServices;
 // associated with an assembly.
 
 [assembly: AssemblyTitle("GeoHex")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("GeoHex implementation for C#")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("mattak")]
 [assembly: AssemblyProduct("GeoHex")]
-[assembly: AssemblyCopyright("Copyright © mattak 2016")]
+[assembly: AssemblyCopyright("Copyright © 2016 mattak")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 [assembly: InternalsVisibleTo("GeoHexTest")]
@@ -37,6 +37,6 @@ using System.Runtime.InteropServices;
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
 
-[assembly: AssemblyVersion("0.0.1")]
-[assembly: AssemblyFileVersion("0.0.1")]
+[assembly: AssemblyVersion("0.0.1.0")]
+[assembly: AssemblyFileVersion("0.0.1.0")]
 
