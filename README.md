@@ -6,3 +6,7 @@ GeoHex library for C#.
 
 You can just put file from GeoHex/GeoHex.cs.
 
+# LICENSE
+
+MIT
+
