@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using NUnit.Framework;
@@ -43,7 +43,7 @@ namespace GeoHex
         [Test]
         public void ZoneGetHexCoordsTest()
         {
-            foreach (string[] v in ParseCsv("../../resources/GetHexCoords_v3.2.csv"))
+            foreach (string[] v in ParseCsv(GetTestFilePath("resources/GetHexCoords_v3.2.csv")))
             {
                 double lat = double.Parse(v[0]);
                 double lon = double.Parse(v[1]);
@@ -67,7 +67,7 @@ namespace GeoHex
         [Test]
         public void ZoneGetHexSize()
         {
-            foreach (String[] v in ParseCsv("../../resources/GetHexSize_v3.2.csv"))
+            foreach (String[] v in ParseCsv(GetTestFilePath("resources/GetHexSize_v3.2.csv")))
             {
                 double lat = double.Parse(v[0]);
                 double lon = double.Parse(v[1]);
@@ -121,7 +121,7 @@ namespace GeoHex
         [Test]
         public void GetZoneByLocation()
         {
-            foreach (string[] v in ParseCsv("../../resources/GetZoneByLocation_v3.2.csv"))
+            foreach (string[] v in ParseCsv(GetTestFilePath("resources/GetZoneByLocation_v3.2.csv")))
             {
                 double lat = double.Parse(v[0]);
                 double lon = double.Parse(v[1]);
@@ -135,7 +135,7 @@ namespace GeoHex
         [Test]
         public void GetXYByLocation()
         {
-            foreach (String[] v in ParseCsv("../../resources/GetXYByLocation_v3.2.csv"))
+            foreach (String[] v in ParseCsv(GetTestFilePath("resources/GetXYByLocation_v3.2.csv")))
             {
                 double lat = double.Parse(v[0]);
                 double lon = double.Parse(v[1]);
@@ -151,7 +151,7 @@ namespace GeoHex
         [Test]
         public void GetZoneByCode()
         {
-            foreach (string[] v in ParseCsv("../../resources/GetZoneByCode_v3.2.csv"))
+            foreach (string[] v in ParseCsv(GetTestFilePath("resources/GetZoneByCode_v3.2.csv")))
             {
                 double lat = double.Parse(v[0]);
                 double lon = double.Parse(v[1]);
@@ -168,7 +168,7 @@ namespace GeoHex
         [Test]
         public void GetZoneByXY()
         {
-            foreach (string[] v in ParseCsv("../../resources/GetZoneByXY_v3.2.csv"))
+            foreach (string[] v in ParseCsv(GetTestFilePath("resources/GetZoneByXY_v3.2.csv")))
             {
                 double x = double.Parse(v[0]);
                 double y = double.Parse(v[1]);
@@ -187,7 +187,7 @@ namespace GeoHex
         [Test]
         public void AdjustXY()
         {
-            foreach (string[] v in ParseCsv("../../resources/AdjustXY_v3.2.csv"))
+            foreach (string[] v in ParseCsv(GetTestFilePath("resources/AdjustXY_v3.2.csv")))
             {
                 long x = long.Parse(v[0]);
                 long y = long.Parse(v[1]);
@@ -220,6 +220,11 @@ namespace GeoHex
             }
 
             return wordsList;
+        }
+
+        private string GetTestFilePath(string path)
+        {
+            return System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, "../..", path);
         }
 
         private void AssertPolygon(double[][] expectedPolygon, Location[] polygon)
