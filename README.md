@@ -1,4 +1,4 @@
-# GeoHex.cs
+# GeoHex.cs [![Build Status](https://travis-ci.org/mattak/GeoHex.cs.png)](https://travis-ci.org/mattak/GeoHex.cs)
 
 GeoHex library for C#.
 
@@ -9,4 +9,3 @@ You can just put file from GeoHex/GeoHex.cs.
 # LICENSE
 
 MIT
-
