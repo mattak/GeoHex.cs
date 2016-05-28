@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>GeoHex</id>
+    <version>0.0.1</version>
+    <title>GeoHex</title>
+    <authors>mattak</authors>
+    <owners>mattak</owners>
+    <licenseUrl>https://github.com/mattak/GeoHex.cs/blob/master/LICENSE.md</licenseUrl>
+    <projectUrl>https://github.com/mattak/GeoHex.cs</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>GeoHex library for C#</description>
+    <copyright>Copyright 2016 mattak</copyright>
+    <tags>GeoHex</tags>
+
+    <dependencies />
+  </metadata>
+
+  <files>
+    <file src="bin/Release/**" target="lib" />
+  </files>
+</package>
