@@ -27,7 +27,8 @@ namespace GeoHex
                 TimeWatch.Pause(MaxLevel*MaxRepeat);
                 TimeWatch.OutputResult("Pow3");
             }
-            {
+
+            {
                 TimeWatch.Reset();
                 TimeWatch.Resume();
 
@@ -42,6 +43,160 @@ namespace GeoHex
                 TimeWatch.Pause(MaxLevel*MaxRepeat);
                 TimeWatch.OutputResult("Math.Pow3");
             }
+        }
+
+        [Test]
+        public void ZoneGetHexCoordsTest()
+        {
+            TimeWatch.Reset();
+            const int MaxReat = 1000000;
+
+            {
+                double lat = 33.35137950146622;
+                double lon = 135.6104480957031;
+                int level = 0;
+                Zone z = GEOHEX.GetZoneByLocation(lat, lon, level);
+
+                TimeWatch.Resume();
+                for (int repeat = 0; repeat < MaxReat; repeat++)
+                {
+                    z.GetHexCoords();
+                }
+                TimeWatch.Pause(MaxReat);
+            }
+
+            TimeWatch.OutputResult("GetHexCoords");
+        }
+
+        [Test]
+        public void ZoneGetHexSize()
+        {
+            const int MaxRepeat = 10000000;
+            TimeWatch.Reset();
+
+            {
+                double lat = 33.35137950146622;
+                double lon = 135.6104480957031;
+                int level = 0;
+                Zone z = GEOHEX.GetZoneByLocation(lat, lon, level);
+
+                TimeWatch.Resume();
+                for (int repeat = 0; repeat < MaxRepeat; repeat++)
+                {
+                    z.GetHexSize();
+                }
+                TimeWatch.Pause(MaxRepeat);
+            }
+
+            TimeWatch.OutputResult("GetHexSize");
+        }
+
+        [Test]
+        public void GetZoneByLocation()
+        {
+            const int MaxRepeat = 1000;
+            TimeWatch.Reset();
+
+            {
+                double lat = 33.35137950146622;
+                double lon = 135.6104480957031;
+                int level = 0;
+
+                TimeWatch.Resume();
+                for (int repeat = 0; repeat < MaxRepeat; repeat++)
+                {
+                    GEOHEX.GetZoneByLocation(lat, lon, level);
+                }
+                TimeWatch.Pause(MaxRepeat);
+            }
+
+            TimeWatch.OutputResult("GetZoneByLocation");
+        }
+
+        [Test]
+        public void GetXYByLocation()
+        {
+            const int MaxRepeat = 1000000;
+            TimeWatch.Reset();
+
+            {
+                double lat = 33.35137950146622;
+                double lon = 135.6104480957031;
+                int level = 0;
+
+                TimeWatch.Resume();
+                for (int repeat = 0; repeat < MaxRepeat; repeat++)
+                {
+                    GEOHEX.GetXYByLocation(lat, lon, level);
+                }
+                TimeWatch.Pause(MaxRepeat);
+            }
+
+            TimeWatch.OutputResult("GetXYByLocation");
+        }
+
+        [Test]
+        public void GetZoneByCode()
+        {
+            const int MaxRepeat = 100000;
+            TimeWatch.Reset();
+
+            {
+                string code = "XM";
+
+                TimeWatch.Resume();
+                for (int repeat = 0; repeat < MaxRepeat; repeat++)
+                {
+                    GEOHEX.GetZoneByCode(code);
+                }
+                TimeWatch.Pause(MaxRepeat);
+            }
+
+            TimeWatch.OutputResult("GetZoneByCode");
+        }
+
+        [Test]
+        public void GetZoneByXY()
+        {
+            const int MaxRepeat = 100000;
+            TimeWatch.Reset();
+
+            {
+                double x = 5;
+                double y = -2;
+                int level = 0;
+
+                TimeWatch.Resume();
+                for (int repeat = 0; repeat < MaxRepeat; repeat++)
+                {
+                    GEOHEX.GetZoneByXY(x, y, level);
+                }
+                TimeWatch.Pause(MaxRepeat);
+            }
+
+            TimeWatch.OutputResult("GetZoneByXY");
+        }
+
+        [Test]
+        public void AdjustXY()
+        {
+            const int MaxRepeat = 10000000;
+            TimeWatch.Reset();
+
+            {
+                long x = -10;
+                long y = -10;
+                int level = 0;
+
+                TimeWatch.Resume();
+                for (int repeat = 0; repeat < MaxRepeat; repeat++)
+                {
+                    GEOHEX.AdjustXY(x, y, level);
+                }
+                TimeWatch.Pause(MaxRepeat);
+            }
+
+            TimeWatch.OutputResult("AdjustXY");
         }
     }
 }
