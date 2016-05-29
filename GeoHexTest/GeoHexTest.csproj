@@ -32,6 +32,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="FileUtil.cs" />
     <Compile Include="GeoHexPerformanceTest.cs" />
     <Compile Include="GeoHexTest.cs" />
     <Compile Include="TimeWatch.cs" />
