@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using NUnit.Framework;
-using NUnit.Framework.Compatibility;
 
 namespace GeoHex
 {
@@ -67,7 +66,7 @@ namespace GeoHex
         [Test]
         public void ZoneGetHexSize()
         {
-            foreach (String[] v in ParseCsv(GetTestFilePath("resources/GetHexSize_v3.2.csv")))
+            foreach (string[] v in ParseCsv(GetTestFilePath("resources/GetHexSize_v3.2.csv")))
             {
                 double lat = double.Parse(v[0]);
                 double lon = double.Parse(v[1]);
@@ -126,7 +125,7 @@ namespace GeoHex
                 double lat = double.Parse(v[0]);
                 double lon = double.Parse(v[1]);
                 int level = int.Parse(v[2]);
-                String code = v[3];
+                string code = v[3];
                 Zone zone = GEOHEX.GetZoneByLocation(lat, lon, level);
                 Assert.AreEqual(code, zone.code);
             }
@@ -135,7 +134,7 @@ namespace GeoHex
         [Test]
         public void GetXYByLocation()
         {
-            foreach (String[] v in ParseCsv(GetTestFilePath("resources/GetXYByLocation_v3.2.csv")))
+            foreach (string[] v in ParseCsv(GetTestFilePath("resources/GetXYByLocation_v3.2.csv")))
             {
                 double lat = double.Parse(v[0]);
                 double lon = double.Parse(v[1]);
@@ -175,7 +174,7 @@ namespace GeoHex
                 double lat = double.Parse(v[2]);
                 double lon = double.Parse(v[3]);
                 int level = int.Parse(v[4]);
-                String code = v[5];
+                string code = v[5];
                 Zone zone = GEOHEX.GetZoneByXY(x, y, level);
                 AssertLatitude(lat, zone.latitude);
                 AssertLongitude(lon, zone.longitude);

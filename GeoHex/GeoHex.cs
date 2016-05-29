@@ -146,14 +146,14 @@ namespace GeoHex
         }
     }
 
-    public class GEOHEX
+    public static class GEOHEX
     {
-        public static readonly string h_key = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
-        public static readonly double h_base = 20037508.34;
-        public static readonly double h_deg = Math.PI*(30.0/180.0);
-        public static readonly double h_k = Math.Tan(h_deg);
-        private static readonly string INC15 = "[15]";
-        private static readonly string EXC125 = "[^125]";
+        private const string h_key = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+        private const double h_base = 20037508.34d;
+        private const double h_deg = 0.5235987755982988d;// Math.PI*(30.0d/180.0d);
+        private const double h_k = 0.5773502691896257d; // Math.Tan(h_deg);
+        private const string INC15 = "[15]";
+        private const string EXC125 = "[^125]";
 
         public static Zone GetZoneByLocation(double latitude, double longitude, int level)
         {
