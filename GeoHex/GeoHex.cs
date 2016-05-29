@@ -14,7 +14,7 @@ using System.Text.RegularExpressions;
 
 namespace GeoHex
 {
-    public class Pow3
+    public static class Pow3
     {
         // TODO: replace compile time constant
         private static readonly long[] POW3 =
