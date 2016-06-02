@@ -2,9 +2,15 @@
 
 GeoHex library for C#.
 
-# How to use?
+# Install
 
-You can just put file from GeoHex/GeoHex.cs.
+Use by nuget.
+
+```
+nuget install GeoHex
+```
+
+or You can directry use just single file GeoHex/GeoHex.cs.
 
 # LICENSE
 
