@@ -1,6 +1,9 @@
 #!/bin/bash -xe
 rm -rf GeoHex{,Test}/{bin,obj}
-rm GeoHex/*.nupkg
+
+if [ "$(find GeoHex -type f -name '*.nupkg')" != "" ]; then
+    rm GeoHex/*.nupkg
+fi
 
 xbuild /p:Configuration=Release20 GeoHex.sln
 xbuild /p:Configuration=Release35 GeoHex.sln
