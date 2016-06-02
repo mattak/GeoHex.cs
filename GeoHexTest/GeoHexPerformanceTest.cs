@@ -7,6 +7,31 @@ namespace GeoHex
     public class GeoHexPerformanceTest
     {
         [Test]
+        public void CeilTest()
+        {
+            const int MaxRepeat = 10000000;
+            int result = 0;
+            {
+                TimeWatch.Reset();
+                TimeWatch.Resume();
+                for (int i=0; i<MaxRepeat; i++) {
+                    result = (int)Math.Ceiling((double)i * 0.5);
+                }
+                TimeWatch.Pause(MaxRepeat);
+                TimeWatch.OutputResult("Math.Ceiling" + result.ToString());
+            }
+            {
+                TimeWatch.Reset();
+                TimeWatch.Resume();
+                for (int i=0; i<MaxRepeat; i++) {
+                    result = (i>>1) + (i&0x1);
+                }
+                TimeWatch.Pause(MaxRepeat);
+                TimeWatch.OutputResult("CustomCeiling" + result.ToString());
+            }
+        }
+
+        [Test]
         public void Pow3Test()
         {
             const int MaxRepeat = 1000000;
@@ -94,7 +119,7 @@ namespace GeoHex
         [Test]
         public void GetZoneByLocation()
         {
-            const int MaxRepeat = 1000;
+            const int MaxRepeat = 100000;
             TimeWatch.Reset();
 
             {
@@ -184,8 +209,8 @@ namespace GeoHex
             TimeWatch.Reset();
 
             {
-                long x = -10;
-                long y = -10;
+                int x = -10;
+                int y = -10;
                 int level = 0;
 
                 TimeWatch.Resume();

@@ -186,8 +186,8 @@ namespace GeoHex
         {
             foreach (string[] v in FileUtil.ParseCsv(FileUtil.GetTestFilePath("resources/AdjustXY_v3.2.csv")))
             {
-                long x = long.Parse(v[0]);
-                long y = long.Parse(v[1]);
+                int x = int.Parse(v[0]);
+                int y = int.Parse(v[1]);
                 int level = int.Parse(v[2]);
                 double ex = double.Parse(v[3]);
                 double ey = double.Parse(v[4]);
