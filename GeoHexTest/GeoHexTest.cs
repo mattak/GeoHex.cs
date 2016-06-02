@@ -1,8 +1,5 @@
 using System;
-using System.Collections.Generic;
-using System.IO;
 using NUnit.Framework;
-using NUnit.Framework.Compatibility;
 
 namespace GeoHex
 {
@@ -43,7 +40,7 @@ namespace GeoHex
         [Test]
         public void ZoneGetHexCoordsTest()
         {
-            foreach (string[] v in ParseCsv(GetTestFilePath("resources/GetHexCoords_v3.2.csv")))
+            foreach (string[] v in FileUtil.ParseCsv(FileUtil.GetTestFilePath("resources/GetHexCoords_v3.2.csv")))
             {
                 double lat = double.Parse(v[0]);
                 double lon = double.Parse(v[1]);
@@ -67,7 +64,7 @@ namespace GeoHex
         [Test]
         public void ZoneGetHexSize()
         {
-            foreach (String[] v in ParseCsv(GetTestFilePath("resources/GetHexSize_v3.2.csv")))
+            foreach (string[] v in FileUtil.ParseCsv(FileUtil.GetTestFilePath("resources/GetHexSize_v3.2.csv")))
             {
                 double lat = double.Parse(v[0]);
                 double lon = double.Parse(v[1]);
@@ -121,12 +118,12 @@ namespace GeoHex
         [Test]
         public void GetZoneByLocation()
         {
-            foreach (string[] v in ParseCsv(GetTestFilePath("resources/GetZoneByLocation_v3.2.csv")))
+            foreach (string[] v in FileUtil.ParseCsv(FileUtil.GetTestFilePath("resources/GetZoneByLocation_v3.2.csv")))
             {
                 double lat = double.Parse(v[0]);
                 double lon = double.Parse(v[1]);
                 int level = int.Parse(v[2]);
-                String code = v[3];
+                string code = v[3];
                 Zone zone = GEOHEX.GetZoneByLocation(lat, lon, level);
                 Assert.AreEqual(code, zone.code);
             }
@@ -135,7 +132,7 @@ namespace GeoHex
         [Test]
         public void GetXYByLocation()
         {
-            foreach (String[] v in ParseCsv(GetTestFilePath("resources/GetXYByLocation_v3.2.csv")))
+            foreach (string[] v in FileUtil.ParseCsv(FileUtil.GetTestFilePath("resources/GetXYByLocation_v3.2.csv")))
             {
                 double lat = double.Parse(v[0]);
                 double lon = double.Parse(v[1]);
@@ -151,7 +148,7 @@ namespace GeoHex
         [Test]
         public void GetZoneByCode()
         {
-            foreach (string[] v in ParseCsv(GetTestFilePath("resources/GetZoneByCode_v3.2.csv")))
+            foreach (string[] v in FileUtil.ParseCsv(FileUtil.GetTestFilePath("resources/GetZoneByCode_v3.2.csv")))
             {
                 double lat = double.Parse(v[0]);
                 double lon = double.Parse(v[1]);
@@ -168,14 +165,14 @@ namespace GeoHex
         [Test]
         public void GetZoneByXY()
         {
-            foreach (string[] v in ParseCsv(GetTestFilePath("resources/GetZoneByXY_v3.2.csv")))
+            foreach (string[] v in FileUtil.ParseCsv(FileUtil.GetTestFilePath("resources/GetZoneByXY_v3.2.csv")))
             {
                 double x = double.Parse(v[0]);
                 double y = double.Parse(v[1]);
                 double lat = double.Parse(v[2]);
                 double lon = double.Parse(v[3]);
                 int level = int.Parse(v[4]);
-                String code = v[5];
+                string code = v[5];
                 Zone zone = GEOHEX.GetZoneByXY(x, y, level);
                 AssertLatitude(lat, zone.latitude);
                 AssertLongitude(lon, zone.longitude);
@@ -187,10 +184,10 @@ namespace GeoHex
         [Test]
         public void AdjustXY()
         {
-            foreach (string[] v in ParseCsv(GetTestFilePath("resources/AdjustXY_v3.2.csv")))
+            foreach (string[] v in FileUtil.ParseCsv(FileUtil.GetTestFilePath("resources/AdjustXY_v3.2.csv")))
             {
-                long x = long.Parse(v[0]);
-                long y = long.Parse(v[1]);
+                int x = int.Parse(v[0]);
+                int y = int.Parse(v[1]);
                 int level = int.Parse(v[2]);
                 double ex = double.Parse(v[3]);
                 double ey = double.Parse(v[4]);
@@ -198,33 +195,6 @@ namespace GeoHex
                 Assert.AreEqual(ex, resultXY.x, 0);
                 Assert.AreEqual(ey, resultXY.y, 0);
             }
-        }
-
-        private List<string[]> ParseCsv(string path)
-        {
-            List<string[]> wordsList = new List<string[]>();
-
-            using (StreamReader reader = new StreamReader(path))
-            {
-                while (reader.Peek() >= 0)
-                {
-                    string lineString = reader.ReadLine();
-                    if (lineString[0] == '#')
-                    {
-                        continue;
-                    }
-
-                    string[] words = lineString.Split(new Char[] {','});
-                    wordsList.Add(words);
-                }
-            }
-
-            return wordsList;
-        }
-
-        private string GetTestFilePath(string path)
-        {
-            return System.IO.Path.Combine(TestContext.CurrentContext.TestDirectory, "../..", path);
         }
 
         private void AssertPolygon(double[][] expectedPolygon, Location[] polygon)
