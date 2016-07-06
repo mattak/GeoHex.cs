@@ -18,25 +18,25 @@ namespace GeoHex
     {
         private static readonly int[] POW3 =
         {
-            1, // (long) Math.Pow(3, 0),
-            3, // (long) Math.Pow(3, 1),
-            9, // (long) Math.Pow(3, 2),
-            27, // (long) Math.Pow(3, 3),
-            81, // (long) Math.Pow(3, 4),
-            243, // (long) Math.Pow(3, 5),
-            729, // (long) Math.Pow(3, 6),
-            2187, // (long) Math.Pow(3, 7),
-            6561, // (long) Math.Pow(3, 8),
-            19683, // (long) Math.Pow(3, 9),
-            59049, // (long) Math.Pow(3, 10),
-            177147, // (long) Math.Pow(3, 11),
-            531441, // (long) Math.Pow(3, 12),
-            1594323, // (long) Math.Pow(3, 13),
-            4782969, // (long) Math.Pow(3, 14),
-            14348907, // (long) Math.Pow(3, 15),
-            43046721, // (long) Math.Pow(3, 16),
-            129140163, // (long) Math.Pow(3, 17),
-            387420489, // (long) Math.Pow(3, 18),
+            1, // (int) Math.Pow(3, 0),
+            3, // (int) Math.Pow(3, 1),
+            9, // (int) Math.Pow(3, 2),
+            27, // (int) Math.Pow(3, 3),
+            81, // (int) Math.Pow(3, 4),
+            243, // (int) Math.Pow(3, 5),
+            729, // (int) Math.Pow(3, 6),
+            2187, // (int) Math.Pow(3, 7),
+            6561, // (int) Math.Pow(3, 8),
+            19683, // (int) Math.Pow(3, 9),
+            59049, // (int) Math.Pow(3, 10),
+            177147, // (int) Math.Pow(3, 11),
+            531441, // (int) Math.Pow(3, 12),
+            1594323, // (int) Math.Pow(3, 13),
+            4782969, // (int) Math.Pow(3, 14),
+            14348907, // (int) Math.Pow(3, 15),
+            43046721, // (int) Math.Pow(3, 16),
+            129140163, // (int) Math.Pow(3, 17),
+            387420489, // (int) Math.Pow(3, 18),
         };
 
         public static int Calc(int times)
@@ -82,11 +82,11 @@ namespace GeoHex
     {
         public readonly double latitude;
         public readonly double longitude;
-        public readonly long x;
-        public readonly long y;
+        public readonly int x;
+        public readonly int y;
         public readonly string code;
 
-        public Zone(double latitude, double longitude, long x, long y, string code)
+        public Zone(double latitude, double longitude, int x, int y, string code)
         {
             this.latitude = latitude;
             this.longitude = longitude;
